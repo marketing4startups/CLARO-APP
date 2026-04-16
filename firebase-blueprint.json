@@ -1,0 +1,81 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents an employee or HR manager in the Claro platform.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["employee", "admin"] },
+        "points": { "type": "number" },
+        "badges": { "type": "array", "items": { "type": "string" } },
+        "completedModules": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Module": {
+      "title": "Module",
+      "description": "A training module for mental health and wellness.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string" },
+        "duration": { "type": "string" },
+        "points": { "type": "number" }
+      },
+      "required": ["id", "title", "content"]
+    },
+    "Assessment": {
+      "title": "Assessment",
+      "description": "A self-assessment check-in for an employee.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "mood": { "type": "number" },
+        "stressLevel": { "type": "number" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "mood", "stressLevel", "createdAt"]
+    },
+    "Consultation": {
+      "title": "Consultation",
+      "description": "A scheduled video consultation with an expert.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "expertName": { "type": "string" },
+        "scheduledAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["scheduled", "completed", "cancelled"] }
+      },
+      "required": ["userId", "expertName", "scheduledAt", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile and progress data."
+    },
+    "/modules/{moduleId}": {
+      "schema": "Module",
+      "description": "Available training modules."
+    },
+    "/assessments/{assessmentId}": {
+      "schema": "Assessment",
+      "description": "User self-assessment history."
+    },
+    "/consultations/{consultationId}": {
+      "schema": "Consultation",
+      "description": "Scheduled expert consultations."
+    }
+  }
+}

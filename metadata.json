@@ -1,0 +1,9 @@
+{
+  "name": "Claro",
+  "description": "A corporate mental health and wellness platform providing gamified training, expert support, and data-driven insights for employees and HR managers.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
