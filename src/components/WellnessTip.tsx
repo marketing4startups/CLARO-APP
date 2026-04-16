@@ -32,21 +32,21 @@ export function WellnessTip() {
   }, []);
 
   return (
-    <Card className="overflow-hidden border-none bg-secondary shadow-sm card-hover">
-      <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent">
+    <Card className="overflow-hidden border-border/40 bg-white shadow-xl shadow-primary/5 card-hover rounded-[2rem]">
+      <CardHeader className="pb-2 px-8 pt-8">
+        <CardTitle className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.3em] text-accent">
           <Sparkles className="h-3.5 w-3.5 fill-current" />
-          Daily Clarity Tip
+          Sage Insight
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-8 pb-8">
         {loading ? (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Loader2 className="h-3 w-3 animate-spin" />
-            Finding clarity...
+          <div className="flex items-center gap-3 text-xs text-muted-foreground font-sage italic py-2">
+            <Loader2 className="h-4 w-4 animate-spin text-primary opacity-30" />
+            Distilling resonance...
           </div>
         ) : (
-          <div className="prose prose-sm dark:prose-invert max-w-none text-sm font-medium text-slate-700 leading-relaxed italic">
+          <div className="prose prose-slate max-w-none text-base font-sage italic text-foreground/80 leading-relaxed pr-2">
             <ReactMarkdown>{tip}</ReactMarkdown>
           </div>
         )}

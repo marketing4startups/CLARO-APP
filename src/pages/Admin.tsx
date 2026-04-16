@@ -61,101 +61,119 @@ export function AdminPage({ profile }: AdminProps) {
   ];
 
   return (
-    <div className="space-y-8">
-      <div className="welcome-section flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="space-y-12">
+      <div className="welcome-section flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">HR Admin Dashboard</h1>
-          <p className="text-muted-foreground">Monitor organization-wide wellness and engagement.</p>
+          <h1 className="text-3xl font-display font-medium tracking-tight text-primary">Organizational Insights</h1>
+          <p className="text-muted-foreground font-sage italic text-lg opacity-80 mt-1">
+            Visualizing the collective resonance and vitality of your team.
+          </p>
         </div>
-        <Button variant="outline" className="gap-2 font-bold shadow-sm">
+        <Button variant="outline" className="gap-3 font-bold border-border/60 text-muted-foreground rounded-full px-8 h-14 hover:bg-muted/50">
           <Download className="h-4 w-4" />
-          Export Report
+          Export Strategic Report
         </Button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        <Card className="card-hover">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Total Employees</span>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{users.length}</div>
-            <p className="text-[10px] font-bold text-emerald-600 mt-1">+4 this month</p>
-          </CardContent>
-        </Card>
-        <Card className="card-hover">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Avg. Engagement</span>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">78%</div>
-            <p className="text-[10px] font-bold text-emerald-600 mt-1">+5% from last month</p>
-          </CardContent>
-        </Card>
-        <Card className="card-hover border-accent/20 bg-accent/5">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-accent">Ephemeral Insights</span>
-            <Lock className="h-4 w-4 text-accent" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{privacyStats.uniqueViews}</div>
-            <p className="text-[10px] font-bold text-muted-foreground mt-1">Estimated Anonymous Visitors</p>
-          </CardContent>
-        </Card>
+      <div className="grid gap-8 md:grid-cols-3">
+        {[
+          { icon: Users, label: 'Resonant Members', val: users.length, detail: '+4 this wave', color: 'primary' },
+          { icon: TrendingUp, label: 'Collective Vitality', val: '78%', detail: '+5% elevation', color: 'secondary' },
+          { icon: Lock, label: 'Ephemeral Echoes', val: privacyStats.uniqueViews, detail: 'Anonymous Visitors', color: 'accent' }
+        ].map((stat, i) => (
+          <Card key={i} className="group p-8 border-border/40 bg-white transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 rounded-[2.5rem]">
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between">
+                <div className={`p-4 rounded-2xl bg-muted/30 text-${stat.color}`}>
+                  <stat.icon className="h-6 w-6" />
+                </div>
+                <Badge className={`bg-white shadow-sm border-border/20 text-${stat.color} text-[8px] font-bold uppercase tracking-[0.2em]`}>
+                  {stat.detail}
+                </Badge>
+              </div>
+              <div>
+                <CardDescription className="font-display font-medium text-muted-foreground tracking-widest uppercase text-[10px] mb-1">{stat.label}</CardDescription>
+                <div className="text-4xl font-display font-medium text-primary tracking-tight">{stat.val}</div>
+              </div>
+            </div>
+          </Card>
+        ))}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Employee Wellness Distribution</CardTitle>
-            <CardDescription>Based on engagement and points.</CardDescription>
+      <div className="grid gap-8 md:grid-cols-2">
+        <Card className="rounded-[2.5rem] border-border/40 shadow-xl shadow-primary/5 bg-white overflow-hidden">
+          <CardHeader className="p-8 pb-0">
+            <CardTitle className="text-2xl font-display font-medium tracking-tight text-primary italic">Vitality Distribution</CardTitle>
+            <CardDescription className="font-sage italic text-sm">Collective engagement levels across the organization.</CardDescription>
           </CardHeader>
-          <CardContent className="h-[300px]">
+          <CardContent className="h-[350px] p-8 -mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={moodDistribution}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
+                  innerRadius={80}
+                  outerRadius={110}
+                  paddingAngle={8}
                   dataKey="value"
+                  stroke="none"
                 >
                   {moodDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
-                <Legend />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    borderRadius: '24px', 
+                    border: '1px solid rgba(15, 23, 42, 0.1)',
+                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+                    padding: '16px'
+                  }}
+                  itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
+                />
+                <Legend 
+                  verticalAlign="bottom" 
+                  height={36} 
+                  iconType="circle"
+                  formatter={(value) => <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground ml-2">{value}</span>}
+                />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Assessments</CardTitle>
-            <CardDescription>Latest employee check-ins (Anonymized).</CardDescription>
+        <Card className="rounded-[2.5rem] border-border/40 shadow-xl shadow-primary/5 bg-white overflow-hidden">
+          <CardHeader className="p-8 pb-4">
+            <CardTitle className="text-2xl font-display font-medium tracking-tight text-primary italic">Recent Self-Reflections</CardTitle>
+            <CardDescription className="font-sage italic text-sm">Aggregated anonymized pulses from the team.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-8 pt-0">
             <div className="space-y-4">
               {assessments.map((a, i) => (
-                <div key={i} className="flex items-center justify-between border-b pb-2 last:border-0">
-                  <div>
-                    <p className="text-sm font-medium">Employee {a.userId.substring(0, 4)}...</p>
-                    <p className="text-xs text-muted-foreground">{new Date(a.createdAt?.seconds * 1000).toLocaleDateString()}</p>
+                <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-background/50 border border-border/20 group hover:border-primary/20 transition-all">
+                  <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-full bg-primary/5 border border-primary/10 flex items-center justify-center text-[10px] font-bold text-primary group-hover:scale-110 transition-transform">
+                      {a.userId.substring(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-foreground/80 leading-tight">Member Echo</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                        {new Date(a.createdAt?.seconds * 1000).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex gap-2">
-                    <Badge variant={a.mood > 3 ? 'default' : 'secondary'}>Mood: {a.mood}</Badge>
-                    <Badge variant={a.stressLevel > 3 ? 'destructive' : 'outline'}>Stress: {a.stressLevel}</Badge>
+                    <Badge className={`${a.mood > 3 ? 'bg-secondary/10 text-secondary' : 'bg-muted text-muted-foreground'} border-none text-[8px] font-bold uppercase px-3`}>Mood {a.mood}</Badge>
+                    <Badge className={`${a.stressLevel > 3 ? 'bg-accent/10 text-accent' : 'bg-muted text-muted-foreground'} border-none text-[8px] font-bold uppercase px-3`}>Stress {a.stressLevel}</Badge>
                   </div>
                 </div>
               ))}
               {assessments.length === 0 && (
-                <p className="text-center text-sm text-muted-foreground py-8">No assessment data yet.</p>
+                <div className="text-center py-20 bg-muted/10 rounded-3xl border border-dashed border-border/60">
+                  <p className="text-sm font-sage italic text-muted-foreground opacity-60">Waiting for collective pulses...</p>
+                </div>
               )}
             </div>
           </CardContent>
