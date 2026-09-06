@@ -14,6 +14,7 @@ import { Resources } from './pages/Resources';
 import { Support } from './pages/Support';
 import { LandingPage } from './pages/LandingPage';
 import { Meditation } from './pages/Meditation';
+import { BurnoutPrevention } from './pages/BurnoutPrevention';
 import { EphemeralTracker } from './components/EphemeralTracker';
 import { Button } from './components/ui/button';
 import { Loader2, Heart } from 'lucide-react';
@@ -23,7 +24,7 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [currentView, setCurrentView] = useState<'dashboard' | 'meditation' | 'training' | 'assessment' | 'admin' | 'resources' | 'support'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'meditation' | 'burnout' | 'training' | 'assessment' | 'admin' | 'resources' | 'support'>('dashboard');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -81,6 +82,7 @@ export default function App() {
     switch (currentView) {
       case 'dashboard': return <Dashboard profile={profile} />;
       case 'meditation': return <Meditation profile={profile} />;
+      case 'burnout': return <BurnoutPrevention profile={profile} />;
       case 'training': return <Training profile={profile} />;
       case 'assessment': return <AssessmentPage profile={profile} />;
       case 'resources': return <Resources />;

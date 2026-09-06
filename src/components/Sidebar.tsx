@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, BookOpen, ClipboardCheck, ShieldCheck, Heart, Library, Headphones, Flower2 } from 'lucide-react';
+import { LayoutDashboard, BookOpen, ClipboardCheck, ShieldCheck, Heart, Library, Headphones, Flower2, AlertTriangle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { Button } from './ui/button';
@@ -14,6 +14,7 @@ export function Sidebar({ currentView, setView, role }: SidebarProps) {
   const navItems = [
     { id: 'dashboard', label: 'Sanctuary', icon: LayoutDashboard },
     { id: 'meditation', label: 'Serenity', icon: Flower2 },
+    { id: 'burnout', label: 'Prevention', icon: AlertTriangle },
     { id: 'training', label: 'Wisdom', icon: BookOpen },
     { id: 'assessment', label: 'Clarity', icon: ClipboardCheck },
     { id: 'resources', label: 'Library', icon: Library },
