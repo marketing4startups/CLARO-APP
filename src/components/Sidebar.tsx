@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, BookOpen, ClipboardCheck, ShieldCheck, Heart, Library, Headphones, Flower2, AlertTriangle } from 'lucide-react';
+import { LayoutDashboard, BookOpen, ClipboardCheck, ShieldCheck, Heart, Library, Headphones, Flower2, AlertTriangle, Globe } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { Button } from './ui/button';
@@ -22,6 +22,7 @@ export function Sidebar({ currentView, setView, role }: SidebarProps) {
   ];
 
   if (role === 'admin') {
+    navItems.push({ id: 'marketing', label: 'Marketing', icon: Globe });
     navItems.push({ id: 'admin', label: 'Insights', icon: ShieldCheck });
   }
 
