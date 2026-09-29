@@ -1,0 +1,17 @@
+theme: jekyll-theme-primer
+title: Claro — Enterprise Workplace Resilience Platform
+description: Architecture, data segregation, differential privacy, and multi-tier cache purge pipeline for enterprise mental health.
+markdown: kramdown
+permalink: /:title/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - src
+  - server.ts
+  - tsconfig.json
+  - vite.config.ts
+  - package.json
+  - package-lock.json
+  - bun.lock
